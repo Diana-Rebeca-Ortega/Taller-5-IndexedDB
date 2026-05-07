@@ -60,7 +60,7 @@
             return;
         }
         try{
-            const transaccion = db.transaccion(["usuarios"], "readwrite");
+            const transaccion = db.transaction(["usuarios"], "readwrite");
             const almacen = transaccion.objectStore("usuarios");
 
             const nuevoUsuario ={
@@ -91,7 +91,7 @@
         const tabla = document.getElementById("cuerpo-tabla");
         tabla.innerHTML = "";
 
-        const transaccion = db.transaccion(["usuarios"], "readonly");
+        const transaccion = db.transaction(["usuarios"], "readonly");
         const almacen = transaccion.objectStore("usuarios");
         const cursorRequest = almacen.openCursor();
 
@@ -119,9 +119,9 @@
     }
 
     function eliminarRegistro(idABorrar){
-        if (!config("Seguro que quieres borrar el ID"+ idABorrar + "?"))return;
+        if (!confirm("Seguro que quieres borrar el ID"+ idABorrar + "?"))return;
 
-        const transaccion = db.transaccion([usuarios], "readwrite");
+        const transaccion = db.transaction(["usuarios"], "readwrite");
         const almacen = transaccion.objectStore("usuarios");
 
         const peticion = almacen.delete(idABorrar);
